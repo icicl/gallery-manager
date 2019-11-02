@@ -1,0 +1,69 @@
+div.megaboi{
+    position:fixed;
+    height:300%;
+    width:300%; 
+    top: -10%;
+    left: -10%
+}
+div.bigboi{
+    position:fixed;
+    left: 20%;
+    top: 5%;
+    width:60%;
+}
+div.left{
+    position:fixed;
+    left: 5%;
+    top: 40%;
+    height:20%;
+}
+div.right{
+    position:fixed;
+    right: 5%;
+    top: 40%;
+    height:20%;
+}
+div.close{
+    position:fixed;
+    left: 5%;
+    top: 0%;
+    width:10%;
+}
+div.newtab{
+    position:fixed;
+    left: 45%;
+    bottom: 0%;
+    width:10%;
+}
+img {
+    width:100%;
+    border-radius:30px;
+    transition: 0.25s;    
+}
+img:hover{
+    transition: border-radius ease 0.25s;
+    border-radius:0px;
+    transform: scale(1.1);
+}
+img.bigboi:hover{
+    transition: border-radius ease 0.25s;
+    border-radius:30px;
+    transform: scale(1.0);
+}
+div.gallery_thin {
+    margin: 1.35%;
+    border-radius: 20px;
+    float: left;
+    width: 13.5135%; 
+}
+div.gallery_wide {
+    margin: 1.35%;
+    border-radius: 3%;
+    float: left;
+    width: 21.6216%;        
+}
+div.gallery_label {
+    font-size:50px;
+    float: left;
+    width: 90%;        
+}
