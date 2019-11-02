@@ -1,21 +1,28 @@
 <?php
+ini_set('memory_limit', '1024M');//IMPORTANT!!!! If you get memory exhausted error when using this page, just boost this number even more.
 session_start();
- 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)){
   header("location: login.php");
   exit;
 }
 
-function createThumbs( $pathToImages )
+function createThumbs( $pathToImages , $year , $alias)
 {
+  $year .= '/';
     $titles = date("M").' '.date('j').' '.date('Y');
+    if ($alias === ''){$alias = $titles;};
     $moveTo = 'images/'.$titles.'/';
     $pathToThumbs = 'images/'.$titles.'_thumbs/';
     $pathToThumbsSq = 'images/'.$titles.'_thumbs_square/';
     if (!file_exists($moveTo)){mkdir($moveTo);}
     if (!file_exists($pathToThumbs)){mkdir($pathToThumbs);}
     if (!file_exists($pathToThumbsSq)){mkdir($pathToThumbsSq);}
+    if (!file_exists('imgAliases/'.$year)){mkdir('imgAliases/'.$year);}
+    $f = fopen('imgAliases/'.$year.$titles,'w');
+fwrite($f,$alias);
+fclose($f);
+
 
   // open the directory
   $dir = opendir( $pathToImages );
@@ -94,14 +101,42 @@ function createThumbs( $pathToImages )
   }
   // close the directory
   closedir( $dir );
+  echo "SUCCESSFULLY PROCESSED";
 }
 // call createThumb function and pass to it as parameters the path
 // to the directory that contains images, the path to the directory
 // in which thumbnails will be placed and the thumbnail's width.
 // We are assuming that the path will be a relative path working
 // both in the filesystem, and through the web for links
-createThumbs("uploads/");
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  $year = "2020";
+  if(!empty(trim($_POST["year"]))){
+      $year = trim($_POST["year"]);
+  }
+  $alias = "";
+  if(!empty(trim($_POST["alias"]))){
+      $alias = trim($_POST["alias"]);
+  }
+
+createThumbs("uploads/",$year,$alias);}
 ?>
+<form action="" method="post">
+<div>
+                <label>Year</label>
+                <input type="text" name="year" value="2020">
+            </div>    
+            <div>
+                <label>Title / time span</label>
+                <input type="text" name="alias" value="">
+            </div>    
+
+            <div class="form-group">
+                <input type="submit" class="btn" value="Confirm">
+            </div>
+        </form>
+        <br />
 takes all of the newly uploaded images out of purgatory and generates thumbnails for them.<br />
 <a href="regenhtml.php">regen new html</a>
 <br />
