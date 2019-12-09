@@ -1,0 +1,33 @@
+img {
+    width:100%;
+    transition: 0.25s;    
+}
+img:hover{
+    border-width:4px;
+    border-color:#000;
+}
+img.selected{
+    border-style:solid;
+    border-width:10px;
+    border-color:#f00;
+}
+img.unselected{
+    border-style:none;
+}
+div.gallery_thin {
+    margin: 1.35%;
+    border-radius: 20px;
+    float: left;
+    width: 13.5135%; 
+}
+div.gallery_wide {
+    margin: 1.35%;
+    border-radius: 3%;
+    float: left;
+    width: 21.6216%;        
+}
+div.gallery_label {
+    font-size:50px;
+    float: left;
+    width: 90%;        
+}

@@ -1,35 +1,26 @@
-var bigboi = document.getElementById("bigboi");
-var megaboi = document.getElementById("megaboi");
-var megaboidiv = document.getElementById("md");
-var left = document.getElementById("left");
-var right = document.getElementById("right");
-var close = document.getElementById("close");
-var newtab = document.getElementById("newtab");
-bigboi.style.width = "0%";
-megaboi.style.height = "0%";
-megaboi.style.width = "0%";
-megaboidiv.style.height = "0%";
-megaboidiv.style.width = "0%";
-left.style.width = "0%";
-right.style.width = "0%";
-close.style.width = "0%";
-newtab.style.width = "0%";
-function mediashow(file){
-    bigboi.src = path+file;
-    megaboi.src = "gallery_assets/tl80.png";
-    left.src = "gallery_assets/previous.png";
-    right.src = "gallery_assets/next.png";
-    close.src = "gallery_assets/close.png";
-    newtab.src = "gallery_assets/newtab.png";
-    bigboi.style.width = "100%";
-    megaboi.style.height = "100%";
-    megaboi.style.width = "100%";
-    megaboidiv.style.height = "300%";
-    megaboidiv.style.width = "300%";
-        left.style.width = "100%";
-    right.style.width = "100%";
-    close.style.width = "100%";
-    newtab.style.width = "100%";
+let bigboi = document.getElementById("bigboi");
+let bigboiimg = document.getElementById("bigboiimg");
+let megaboi = document.getElementById("megaboi");
+let left = document.getElementById("left");
+let right = document.getElementById("right");
+let close = document.getElementById("close");
+let newtab = document.getElementById("newtab");
+let showing=false;
+close_();
+
+
+let file;//image src
+function mediashow(div){
+    div.children[0].style.zIndex=-1;
+    bigboiimg.src = div.children[0].src.replace('_square','');
+    bigboiimg.src = div.children[0].src.replace('_thumbs','').replace('_square','');
+    bigboi.style.display='block'
+    megaboi.style.display='block';
+    left.style.display='block'
+    right.style.display='block';
+    close.style.display='block'
+    newtab.style.display='block';
+    showing=true;
 }
 
 document.onkeydown = function(evt) {
@@ -39,42 +30,38 @@ document.onkeydown = function(evt) {
     }
 };
 function prev(){
-    var fn = bigboi.src.split('/');
+    var fn = bigboiimg.src.split('/');
     var ffn = fn[fn.length-2]+'/'+fn[fn.length-1];
     var pos = imgsns.indexOf(ffn);
-    console.log(ffn+pos);
     if (pos > 0){
-        bigboi.src = path+imgs[pos-1];
+        bigboiimg.src = path+imgsns[pos-1];
     }
 }
 function next(){
-    var fn = bigboi.src.split('/');
+    var fn = bigboiimg.src.split('/');
     var ffn = fn[fn.length-2]+'/'+fn[fn.length-1];
     var pos = imgsns.indexOf(ffn);
-    console.log(ffn+pos);
     if (pos < imgs.length-1){
-        bigboi.src = path+imgs[pos+1];
+        bigboiimg.src = path+imgsns[pos+1];
     }
 }
 function new_tab(){
-    window.open(bigboi.src,'_blank');
+    window.open(bigboiimg.src,'_blank');
 }
 function close_(){
-    bigboi.src="gallery_assets/void.png";
-    megaboi.src="gallery_assets/void.png";
-    left.src="gallery_assets/void.png";
-    right.src="gallery_assets/void.png";
-    close.src="gallery_assets/void.png";
-    newtab.src="gallery_assets/void.png";
-    bigboi.style.width = "0%";
-    megaboi.style.height = "0%";
-    megaboi.style.width = "0%";
-    megaboidiv.style.height = "0%";
-    megaboidiv.style.width = "0%";
-    left.style.width = "0%";
-    right.style.width = "0%";
-    close.style.width = "0%";
-    newtab.style.width = "0%";
+    bigboi.style.display='none'
+    megaboi.style.display='none';
+    left.style.display='none'
+    right.style.display='none';
+    close.style.display='none'
+    newtab.style.display='none';
+    showing=false;
 }
+megaboi.onclick = function(e){
+    if (showing && e.target != bigboi && e.target != left && e.target != right && e.target != newtab && e.target != close){
+      close_();
+    }
+  }
+
 </script>
 </body></html>

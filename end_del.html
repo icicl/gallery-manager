@@ -1,0 +1,39 @@
+<form id="form" action="" method="post">
+    <input id="formdata" type="hidden" name="files">
+</form>
+
+<script>
+    let button=document.getElementById("button");
+    button.style.display="none";
+    let form=document.getElementById('form');
+    let formdata=document.getElementById('formdata');
+    let files=[];
+    let n=0;
+    function select_(div){
+        var im = div.children[0];
+        if (im.className=="selected"){
+            im.className="unselected";
+            files.splice(files.indexOf(im.src), 1);
+            n-=1;
+            if(n==0){
+                button.style.display="none";
+            }
+        } else{
+            im.className="selected";
+            n+=1
+            button.style.display="block";
+            files.push(im.src.replace("_thumbs","").replace("_square",""));
+        }
+    }
+
+    function sendit(){
+        formdata.value=files;
+        form.submit();
+//        for(var i=0;i<files.length;i++){
+//            formdata.value=files[i].replace("_thumbs","").replace("_square","");
+//            form.submit();
+//        }
+    }
+
+</script>
+</body></html>
